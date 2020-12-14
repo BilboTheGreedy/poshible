@@ -1,0 +1,3 @@
+@{
+    SuperSecret = "SuperSecretPassword!"
+}
