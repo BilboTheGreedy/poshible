@@ -1,3 +1,4 @@
+Import-Module .\poshible.psm1
 Get-inventory .\inventory.psd1
 
 #Vault needs to be decrypted first since we have 

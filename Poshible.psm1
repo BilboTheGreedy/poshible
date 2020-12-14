@@ -4,7 +4,7 @@ if (!$group_vars_path){
 if (!$host_vars_path){
     New-Variable -Name "host_vars_path" -Value ".\host_vars" -Option Constant
 }
-
+function prompt {"Poshible>"}
 function Get-Inventory{
     Param ($Path)
 
@@ -100,9 +100,16 @@ function Decrypt-Vault {
     $mycert=Get-Childitem Cert:\CurrentUser\My
     $choicec=$mycert | Where-Object hasprivatekey -eq 'true' | Select-Object -Property Issuer,Subject,HasPrivateKey | Out-GridView -Title 'Select Certificate' -PassThru
     $vault = Get-CmsMessage -Path $path
-    $Vault_Inventory = $vault | Unprotect-cmsMessage -To $choicec.Subject
-    $scriptblock = [scriptblock]::Create($Vault_Inventory)
-    $Global:Vault = ( & $scriptblock)
+    try {
+        $Vault_Inventory = $vault | Unprotect-cmsMessage -To $choicec.Subject
+        $scriptblock = [scriptblock]::Create($Vault_Inventory)
+        $Global:Vault = ( & $scriptblock)
+    }
+    catch {
+        write-warning "Failed to decrypt Vault file"
+        exit
+    }
+    
 }
 
 function Decrypt-VaultToPlain {
