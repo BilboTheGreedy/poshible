@@ -105,4 +105,14 @@ function Decrypt-Vault {
     $Global:Vault = ( & $scriptblock)
 }
 
+function Decrypt-VaultToPlain {
+    param (
+        [string]$Path
+    )
+    $mycert=Get-Childitem Cert:\CurrentUser\My
+    $choicec=$mycert | Where-Object hasprivatekey -eq 'true' | Select-Object -Property Issuer,Subject,HasPrivateKey | Out-GridView -Title 'Select Certificate' -PassThru
+    $vault = Get-CmsMessage -Path $path
+    $vault | Unprotect-cmsMessage -To $choicec.Subject | Out-File $path -Encoding utf8 -Force
+
+}
 
