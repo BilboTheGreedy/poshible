@@ -1,3 +1,0 @@
-@{
-    DomainName = "astra.zen.local"
-}

@@ -5,6 +5,7 @@ Get-inventory .\inventory.psd1
 #vars trying to use it
 Decrypt-Vault -Path .\vault.psd1
 
+Get-GlobalVars
 Get-GroupVars
 Get-HostVars
 

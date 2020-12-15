@@ -1,18 +1,28 @@
 @{
-    vSAN_Cluster = @{
+    Admin_ESXi = @{
         Hosts =@{
             "esxi01" = @{}
-            "esxi02" = @{}
+        }
+    }
+    vSAN_Cluster = @{
+        Hosts =@{
+            "kesxi01" = @{}
+            "kesxi02" = @{}
         }
     }
     Windows_Machines = @{
         Hosts =@{
             "dc01" = @{}
+            "wus" = @{}
+            "rds" = @{}
+            "ards" = @{}
         }
     }
     Linux_Machines = @{
         Hosts =@{
-            "rhel" = @{}
+            "lus" = @{}
+            "nus" = @{}
+            "logg" = @{}
         }
     }
 }

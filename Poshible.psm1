@@ -4,11 +4,34 @@ if (!$group_vars_path){
 if (!$host_vars_path){
     New-Variable -Name "host_vars_path" -Value ".\host_vars" -Option Constant
 }
+if (!$global_vars_path){
+    New-Variable -Name "global_vars_path" -Value ".\global_vars" -Option Constant
+}
 function prompt {"Poshible>"}
 function Get-Inventory{
     Param ($Path)
 
     $Global:Inventory = Import-PowerShellDataFile $path
+    
+}
+function Get-GlobalVars {
+    if ((Test-Path $global_vars_path)) {
+        $global_items =  Get-ChildItem $global_vars_path
+        if ($global_items){
+            $inventory.Add("vars",@{})
+            foreach ($global_item in $global_items) {
+            
+                $Content = Get-Content $global_item.fullname -raw
+                $scriptblock = [scriptblock]::Create($Content)
+                $params = (& $scriptblock )
+                foreach ($key in $params.keys) {
+                    $inventory.vars.add($key, $params[$key])
+                }
+            
+        }
+        }
+        
+    }
     
 }
 function Get-GroupVars {
