@@ -1,6 +1,6 @@
 @{
-    IP = "192.168.60.1"
-    SubnetMask = "255.255.255.248"
-    Gateway = "192.168.60.6"
+    IP = ($inventory.vars.subnets.dc | Get-Subnet).HostAddresses[0]
+    SubnetMask = ($inventory.vars.subnets.dc | Get-Subnet).SubnetMask.IPAddressToString
+    Gateway = (($inventory.vars.subnets.dc | Get-Subnet).HostAddresses | select -Last 1)
     Password =  $Vault.InstallPassword
 }

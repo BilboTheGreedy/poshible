@@ -10,13 +10,13 @@
                 vMotion =@{vlanid=300}
             }
         }
-        'vDS-Ost' =@{
+        'vDS-VM1' =@{
             uplinks =@(
                 'vmnic2',
                 'vmnic4'
             )
         }
-        'vDS-Nord' =@{
+        'vDS-VM2' =@{
             uplinks =@(
                 'vmnic9',
                 'vmnic11'
